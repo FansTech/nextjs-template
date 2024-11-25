@@ -17,6 +17,8 @@ import {
 import { DisplayData } from '@/components/DisplayData/DisplayData';
 
 import './styles.css';
+import { useTomo } from '@tomo-inc/tomo-telegram-sdk';
+import { useEffect } from 'react';
 
 export default function TONConnectPage() {
   const wallet = useTonWallet();

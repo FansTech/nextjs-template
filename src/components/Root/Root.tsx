@@ -19,6 +19,7 @@ import { setLocale } from '@/core/i18n/locale';
 import { init } from '@/core/init';
 
 import './styles.css';
+import { CONNECT_MAP, initTomoModal } from '@tomo-inc/tomo-telegram-sdk';
 
 function RootInner({ children }: PropsWithChildren) {
   const isDev = process.env.NODE_ENV === 'development';
@@ -51,14 +52,14 @@ function RootInner({ children }: PropsWithChildren) {
   }, [debug]);
 
   return (
-    <TonConnectUIProvider manifestUrl="/tonconnect-manifest.json">
+    // <TonConnectUIProvider manifestUrl="/tonconnect-manifest.json">
       <AppRoot
         appearance={isDark ? 'dark' : 'light'}
         platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
       >
         {children}
       </AppRoot>
-    </TonConnectUIProvider>
+    // </TonConnectUIProvider>
   );
 }
 
@@ -67,9 +68,24 @@ export function Root(props: PropsWithChildren) {
   // the Server Side Rendering. That's why we are showing loader on the server
   // side.
   const didMount = useDidMount();
+  // useEffect(() => {
+  //   initTomoModal({
+  //     onConnect: (obj) => {
+  //       console.log(obj)
+  //     },
+  //     supportedProviders: ["TON"],
+  //     supportedConnects: [
+  //       CONNECT_MAP.TOMO_MINI_APP,
+  //       CONNECT_MAP.OKX_CONNECT,
+  //       // CONNECT_MAP.TON_CONNECT,
+  //     ],
+  //     manifestUrl: "https://d8o5s6z018yzr.cloudfront.net/manifestUrl.json",
+  //   });
+  // }, []);
 
   return didMount ? (
     <ErrorBoundary fallback={ErrorPage}>
+      ??
       <RootInner {...props}/>
     </ErrorBoundary>
   ) : <div className="root__loading">Loading</div>;
